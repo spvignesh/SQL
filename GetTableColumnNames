@@ -1,0 +1,4 @@
+select col.name from <<DB>>.sys.columns col
+inner join <<DB>>.sys.objects obj on obj.object_id = col.object_id
+ where obj.name='<<TableName>>' 
+ --and is_column_set=0
