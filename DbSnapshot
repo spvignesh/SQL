@@ -76,3 +76,32 @@ CREATE DATABASE SampleTestSS ON
 
 --PRINT @sqlcmd
 --EXEC (@sqlcmd)
+
+--3. SET DB OFFLINE (DB RESET)
+USE [master];
+GO
+ALTER DATABASE SampleTest SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+ALTER DATABASE SampleTest SET OFFLINE;
+
+--3.a FIND SESSION AND KILL
+--SELECT request_session_id  FROM sys.dm_tran_locks WHERE resource_database_id = DB_ID('SampleTest')
+--kill <<request_session_id>>
+
+--3.b CHECK THE SESSION ID DETAILS
+--SELECT conn.session_id, host_name, program_name,
+--    nt_domain, login_name, connect_time, last_request_end_time 
+--FROM sys.dm_exec_sessions AS sess
+--JOIN sys.dm_exec_connections AS conn
+--  ON sess.session_id = conn.session_id where conn.session_id=<<request_session_id>>
+
+-- 4. SET DB ONLINE (RESET DB)
+ALTER DATABASE SampleTest SET ONLINE;
+GO
+ALTER DATABASE SampleTest SET MULTI_USER;
+
+-- 5. Restore DB from snapshot db.
+USE master;  
+RESTORE DATABASE SampleTest from   
+DATABASE_SNAPSHOT = 'SampleTestSS';  
+GO  
