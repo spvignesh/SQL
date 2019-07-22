@@ -1,0 +1,76 @@
+--1. create db and table
+create database SampleTest
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customers](
+	[Id] [bigint] NOT NULL,
+	[First Name] [varchar](50) NULL,
+	[Code] [int] NULL,
+	[City] [varchar](50) NULL,
+	[Last Name] [varchar](50) NULL,
+	[Country] [varchar](50) NULL
+) ON [PRIMARY]
+
+GO
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (1, N'Peter', 123, N'Los Angeles', N'Hein', N'America')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (2, N'Francois', 456, N'Paris', N'Gilles', N'France')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (3, N'Kevin', 789, N'London', N'Peterson', N'United Kingdom')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (4, N'Mark', 134, N'Toronto', N'Henry', N'Canada')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (5, N'Sakurai', 341, N'Tokyo', N'Shoko', N'Japan')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (6, N'Jim', 734, N'Shanghai', N'Lee', N'China')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (7, N'Karl', 734, N'Queenstown', N'Wood', N'New Zealand')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (8, N'James', 734, N'Manila', N'Max', N'Philippines')
+INSERT [dbo].[Customers] ([Id], [First Name], [Code], [City], [Last Name], [Country]) VALUES (9, N'Mohammad', 639, N'Karachi', N'Khan', N'Pakistan')
+
+
+
+
+
+
+--2. Create Snapshot
+CREATE DATABASE SampleTestSS ON 
+--(NAME='SampleTest', FILENAME='C:\SampleTest\SampleTest-123456789.ss')
+ AS SNAPSHOT OF SampleTest
+
+-- CMD to create snapshot dynamically
+--declare @ssdirname varchar(1000), @targetdb varchar(255) 
+--SET @ssdirname = 'C:\SampleTest\'
+--SET @targetdb = DB_NAME() + 'SS'
+
+----(2.a) Unique timestamp for filenames
+--DECLARE @timestamp varchar(50)
+--SET @timestamp = REPLACE(REPLACE(REPLACE(CONVERT(varchar(50),GETDATE(),126),':',''),'.',''),'-','')
+
+--DECLARE oncmd CURSOR FOR
+--	select OnCmd = '(NAME=''' + [name] + ''', FILENAME=''' + @ssdirname + [name] + '-' + @timestamp + '.ss'')'
+--	from sys.database_files
+--	where [type] = 0
+
+--DECLARE @oncmd varchar(500), @sqlcmd varchar(4000)
+--SET @sqlcmd = ''
+
+--OPEN oncmd
+--FETCH NEXT FROM oncmd INTO @oncmd
+--WHILE @@FETCH_STATUS = 0
+--BEGIN
+--	IF @sqlcmd <> ''
+--		SET @sqlcmd = @sqlcmd + ', ' + CHAR(10)
+--	SET @sqlcmd = @sqlcmd + @oncmd
+
+--	FETCH NEXT FROM oncmd INTO @oncmd
+--END
+--CLOSE oncmd
+--DEALLOCATE oncmd
+
+--SET @sqlcmd = 'CREATE DATABASE ' + @targetdb + ' ON ' + CHAR(10) + @sqlcmd
+--SET @sqlcmd = @sqlcmd + CHAR(10) + 'AS SNAPSHOT OF ' + DB_NAME()
+
+
+--IF EXISTS (SELECT name FROM sys.databases WHERE name = @targetdb)
+--	SET @sqlcmd = 'DROP DATABASE ' + @targetdb + ';' + CHAR(10) + @sqlcmd
+
+--PRINT @sqlcmd
+--EXEC (@sqlcmd)
