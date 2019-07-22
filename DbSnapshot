@@ -77,6 +77,10 @@ CREATE DATABASE SampleTestSS ON
 --PRINT @sqlcmd
 --EXEC (@sqlcmd)
 
+--Update orginial DB after creating the Snapshot for testing (one row is added and one row is updated)
+insert into [SampleTest].[dbo].[Customers] values(10,'Ram',820,'Kuala Lumpur','Kumar','Malaysia')
+update [SampleTest].dbo.Customers set [First Name] ='Imran' where id=9
+
 --3. SET DB OFFLINE (DB RESET)
 USE [master];
 GO
