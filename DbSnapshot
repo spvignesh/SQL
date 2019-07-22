@@ -1,4 +1,6 @@
---1. create db and table
+-- DB snapshot is available in Enterprise Edition of SQL Server, not in Express or Standard Edition.
+-- SELECT @@Version (know the version of your sql server management studio)
+--1. create db and table 
 create database SampleTest
 
 SET ANSI_NULLS ON
