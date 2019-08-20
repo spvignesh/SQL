@@ -22,10 +22,10 @@ CREATE TYPE EmpTbl AS Table (Emp_Name NAME,Emp_Age int, Emp_Location VARCHAR(100
 
 a.DataType
 CREATE TABLE EMP(EMP_ID Bigint,EMP_Name NAME, Emp_Sex SEX)  
-DECLARE @Name TypeName  
+DECLARE @Name NAME  
 
 b.TableType
-DECLARE @empTempTab empTempTabType  
+DECLARE @EmpTmpTbl EmpTbl  
 
 ----------------------------------------------------------------------------------------------
 
