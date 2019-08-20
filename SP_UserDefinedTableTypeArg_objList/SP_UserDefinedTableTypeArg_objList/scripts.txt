@@ -1,0 +1,17 @@
+﻿CREATE DATABASE [Customer]
+
+CREATE TYPE [dbo].[CustTblType] AS TABLE(
+	[Name] [varchar](100) NULL,
+	[Age] [int] NULL,
+	[Location] [varchar](100) NULL,
+	[SEX] [char](1) NULL
+)
+
+CREATE PROCEDURE [dbo].[UpdateCust]
+@tmp CustTblType readonly
+AS
+select * into #tmp123 from @tmp 
+update #tmp123 set age =27,Location='California'
+select * from #tmp123
+drop table #tmp123
+GO
