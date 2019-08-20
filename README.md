@@ -1,3 +1,3 @@
 SqlTableDependencySample project explains the way to update the UI when a data changes in db.
 
-UserDefinedTableType is used as an argument in Stored Procedure.
+UserDefinedTableType projectc explains how to include user defined structure as an argument in Stored Procedure.
