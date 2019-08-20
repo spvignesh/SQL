@@ -1,0 +1,33 @@
+User Defined Type:
+
+SQL has user defined types (i.e models that we have in c#).
+We can create our own datatype (i.e nvarchar(max)-> "Name", char(1) -> "Sex",etc..) and use the datatype in our sql statements instead of default datatypes (i.e nvarchar(max),char(1),etc..)
+We can also create user defined table and use the structure when ever required in sql statements.
+
+
+ex:
+
+----------------------------------------------------------------------------------------------
+1. Create User Defined Type:
+
+a.DataType
+CREATE TYPE NAME FROM NVARCHAR(100) 
+CREATE TYPE SEX FROM CHAR(1) 
+
+b.TableType
+CREATE TYPE EmpTbl AS Table (Emp_Name NAME,Emp_Age int, Emp_Location VARCHAR(100),Emp_SEX SEX)  
+
+----------------------------------------------------------------------------------------------
+2. Use User Defined Type:
+
+a.DataType
+CREATE TABLE EMP(EMP_ID Bigint,EMP_Name NAME, Emp_Sex SEX)  
+DECLARE @Name TypeName  
+
+b.TableType
+DECLARE @empTempTab empTempTabType  
+
+----------------------------------------------------------------------------------------------
+
+The created Types can be seen as below
+Database -> Programmability -> Types -> User-Defined Data Types / User-Defined Table Types etc.
