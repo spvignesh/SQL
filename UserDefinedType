@@ -31,3 +31,5 @@ DECLARE @EmpTmpTbl EmpTbl
 
 The created Types can be seen as below
 Database -> Programmability -> Types -> User-Defined Data Types / User-Defined Table Types etc.
+
+Note: Types can be accessed only within the database and will get error if it is used by other database (eventhough used by three part <db>.<schema>.<Type> will get error in other database)
