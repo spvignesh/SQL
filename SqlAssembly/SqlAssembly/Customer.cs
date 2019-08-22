@@ -17,7 +17,7 @@ namespace SqlAssembly
             Name = (string)name;
         }
         
-        //If the retunr type of the method is List of Objects then follow as below.
+        //If the return type of the method is List of Objects then follow as below.
         //public static void FillNameRow(object objClass, out SqlString Name)
         //{
         //    BaseClass baseClass = (BaseClass)objClass;
