@@ -1,0 +1,31 @@
+
+--1. Create Assembly
+CREATE ASSEMBLY [SqlAssembly]
+FROM 'C:\SqlAssembly.dll'
+WITH PERMISSION_SET = SAFE
+
+--2. Configure clr enabled
+--sp_configure (If not configured then it will throw an Error : Execution of user code in the .NET Framework is disabled. Enable "clr enabled" configuration option)
+EXEC sp_configure 'clr enabled', 1
+ go
+ RECONFIGURE
+ go
+EXEC sp_configure 'clr enabled'
+ go
+
+
+--3. Create Function to call Assembly
+CREATE FUNCTION [dbo].[GetNames]()
+RETURNS  TABLE (
+	[Name] [nvarchar](MAX) NULL
+) WITH EXECUTE AS CALLER
+AS 
+EXTERNAL NAME SqlAssembly."SqlAssembly.Customer".GetCustomerNames
+GO
+
+--4. Call the function and get the output from dll.
+select * from dbo.GetNames()
+
+--5. Reload Assembly for updated dll.
+ALTER ASSEMBLY [SqlAssembly] 
+FROM 'C:\SqlAssembly.dll'
